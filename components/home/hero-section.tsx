@@ -1,5 +1,7 @@
+import Link from "next/link";
 import { Button } from "../ui/button";
 import { Spotlight } from "../ui/spotlight-new";
+import { CLERK_SIGN_IN_URL } from "@/constants";
 
 export function HeroSection() {
   return (
@@ -15,12 +17,14 @@ export function HeroSection() {
             preparation powered by advanced AI to help you land your dream job.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white"
-            >
-              Get Started Free
-            </Button>
+            <Link href={`${CLERK_SIGN_IN_URL}`}>
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white"
+              >
+                Get Started Free
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

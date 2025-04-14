@@ -1,0 +1,6 @@
+export const CLERK_SIGN_IN_URL = process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL;
+export const CLERK_SIGN_UP_URL = process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL;
+export const CLERK_AFTER_SIGN_IN_URL =
+  process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL;
+export const CLERK_AFTER_SIGN_UP_URL =
+  process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL;

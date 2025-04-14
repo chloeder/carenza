@@ -7,7 +7,7 @@ import { useMediaQuery } from "@/hooks/use-media-query";
 import { Menu, X } from "lucide-react";
 import { Audiowide } from "next/font/google";
 import Link from "next/link";
-
+import { CLERK_SIGN_IN_URL } from "@/constants";
 const audioWide = Audiowide({
   subsets: ["latin"],
   weight: ["400"],
@@ -75,9 +75,15 @@ export function Header() {
             >
               How it Works
             </Link>
-            <Button variant="outline" className="text-white border-gray-700">
-              Sign In
-            </Button>
+            <Link href={`${CLERK_SIGN_IN_URL}`}>
+              <Button
+                variant="outline"
+                className="text-white border-gray-700 w-full"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Sign In
+              </Button>
+            </Link>
           </nav>
         )}
 
@@ -104,13 +110,15 @@ export function Header() {
             >
               How it Works
             </Link>
-            <Button
-              variant="outline"
-              className="text-white border-gray-700 w-full"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Sign In
-            </Button>
+            <Link href={`${CLERK_SIGN_IN_URL}`}>
+              <Button
+                variant="outline"
+                className="text-white border-gray-700 w-full"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Sign In
+              </Button>
+            </Link>
           </div>
         )}
       </div>
