@@ -1,8 +1,10 @@
 "use client";
 
-import { useRef } from "react";
+import { CLERK_SIGN_IN_URL } from "@/constants";
 import { motion, useInView } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { useRef } from "react";
+import { HoverBorderGradient } from "../ui/hover-border-gradient";
 
 export function CtaSection() {
   const ref = useRef(null);
@@ -20,7 +22,7 @@ export function CtaSection() {
 
   return (
     <section className="py-20 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-indigo-900/20 z-0"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-zinc-500/20 to-indigo-900/20 z-0"></div>
 
       {/* Animated background elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
@@ -47,19 +49,13 @@ export function CtaSection() {
             with our AI-powered coaching platform. Start your journey today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white"
+            <HoverBorderGradient
+              containerClassName="rounded-full"
+              as="button"
+              className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2"
             >
-              Get Started Free
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-gray-600 text-white hover:bg-gray-800"
-            >
-              Schedule a Demo
-            </Button>
+              <Link href={`${CLERK_SIGN_IN_URL}`}>Get Started Free</Link>
+            </HoverBorderGradient>
           </div>
         </motion.div>
       </div>

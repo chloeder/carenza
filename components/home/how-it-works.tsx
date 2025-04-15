@@ -1,9 +1,8 @@
 "use client";
 
-import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { UserCircle, Sparkles, Rocket } from "lucide-react";
-
+import { Rocket, Sparkles, UserCircle } from "lucide-react";
+import { useRef } from "react";
 const steps = [
   {
     icon: <UserCircle className="w-12 h-12 text-purple-400" />,
@@ -51,8 +50,16 @@ export function HowItWorks() {
   };
 
   return (
-    <section id="how-it-works" className="py-20 bg-gray-950">
-      <div className="container mx-auto px-4">
+    <section id="how-it-works" className="py-20 bg-zinc-500/20 relative">
+      {/* Animated background elements */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+        <div className="absolute top-0 left-1/4 w-64 h-64 bg-purple-500/10 rounded-full filter blur-3xl animate-pulse"></div>
+        <div
+          className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full filter blur-3xl animate-pulse"
+          style={{ animationDelay: "1s" }}
+        ></div>
+      </div>
+      <div className="relative container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
@@ -82,12 +89,6 @@ export function HowItWorks() {
               </div>
               <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
               <p className="text-gray-400">{step.description}</p>
-
-              {index < steps.length - 1 && (
-                <div className="hidden md:block h-0.5 w-24 bg-gray-700 absolute right-[-4rem] top-12 transform rotate-0">
-                  <div className="h-2 w-2 bg-gray-500 rounded-full absolute right-0 top-1/2 transform -translate-y-1/2"></div>
-                </div>
-              )}
             </motion.div>
           ))}
         </motion.div>

@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { FileText, MessageSquare, TrendingUp, Briefcase } from "lucide-react";
+import { Briefcase, FileText, MessageSquare, TrendingUp } from "lucide-react";
+import { useRef } from "react";
 
 const features = [
   {
@@ -57,7 +57,7 @@ export function FeaturesSection() {
   };
 
   return (
-    <section id="features" className="py-20 bg-gray-900">
+    <section id="features" className="py-20 ">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -80,7 +80,7 @@ export function FeaturesSection() {
             <motion.div
               key={index}
               variants={itemVariants}
-              className="bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow border border-gray-700"
+              className=" rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow border "
             >
               <div className="mb-4">{feature.icon}</div>
               <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>

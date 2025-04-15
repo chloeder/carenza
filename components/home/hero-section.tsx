@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { Button } from "../ui/button";
-import { Spotlight } from "../ui/spotlight-new";
 import { CLERK_SIGN_IN_URL } from "@/constants";
+import Link from "next/link";
+import { HoverBorderGradient } from "../ui/hover-border-gradient";
+import { Spotlight } from "../ui/spotlight-new";
 
 export function HeroSection() {
   return (
@@ -17,14 +17,13 @@ export function HeroSection() {
             preparation powered by advanced AI to help you land your dream job.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href={`${CLERK_SIGN_IN_URL}`}>
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white"
-              >
-                Get Started Free
-              </Button>
-            </Link>
+            <HoverBorderGradient
+              containerClassName="rounded-full"
+              as="button"
+              className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2"
+            >
+              <Link href={`${CLERK_SIGN_IN_URL}`}>Get Started Free</Link>
+            </HoverBorderGradient>
           </div>
         </div>
       </div>

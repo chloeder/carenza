@@ -47,7 +47,7 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="py-20 bg-gray-900">
+    <section className="py-20 ">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -59,7 +59,7 @@ export function Testimonials() {
           </p>
         </div>
 
-        <div className="rounded-md flex flex-col antialiased bg-white dark:bg-gray-900 dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
+        <div className="rounded-md flex flex-col antialiased bg-white dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
           <InfiniteMovingCards
             items={testimonials}
             direction="right"
