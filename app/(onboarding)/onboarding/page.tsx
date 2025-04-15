@@ -1,9 +1,14 @@
+import { Spotlight } from "@/components/ui/spotlight";
+import OnboardingFlow from "../_components/onboarding-flow";
+
 export default function Onboarding() {
   return (
-    <div className="h-screen flex items-center justify-center">
-      <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold mb-4 text-white">Onboarding</h2>
-      </div>
-    </div>
+    <main className="min-h-screen text-white relative">
+      <Spotlight
+        className="-top-40 left-0 md:-top-[50rem] md:-left-[30rem] opacity-100"
+        fill="#740b80"
+      />
+      <OnboardingFlow />
+    </main>
   );
 }

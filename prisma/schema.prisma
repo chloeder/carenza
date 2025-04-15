@@ -23,8 +23,8 @@ model User {
   updatedAt   DateTime @updatedAt
 
   bio        String?
-  experience String?
-  education  String?
+  experience Json[]
+  education  Json[]
   skills     String[]
 
   CoverLetter   CoverLetter[]

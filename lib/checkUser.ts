@@ -3,7 +3,7 @@ import db from "./prisma";
 
 export async function checkUser() {
   const user = await currentUser();
-  console.log("User: ", user);
+
   if (!user) {
     return null;
   }
@@ -14,7 +14,6 @@ export async function checkUser() {
         clerkUserId: user.id,
       },
     });
-    console.log("Logged in user: ", loggedInUser);
 
     if (loggedInUser) {
       return loggedInUser;
@@ -30,7 +29,7 @@ export async function checkUser() {
         imageUrl: user.imageUrl,
       },
     });
-    console.log("New user created: ", newUser);
+
     return newUser;
   } catch (error) {
     console.error("Error in checkUser:", error);
