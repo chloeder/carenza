@@ -8,6 +8,7 @@ import { Menu, X } from "lucide-react";
 import { Audiowide } from "next/font/google";
 import Link from "next/link";
 import { CLERK_SIGN_IN_URL } from "@/constants";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 const audioWide = Audiowide({
   subsets: ["latin"],
   weight: ["400"],
@@ -75,15 +76,26 @@ export function Header() {
             >
               How it Works
             </Link>
-            <Link href={`${CLERK_SIGN_IN_URL}`}>
-              <Button
-                variant="outline"
-                className="text-white border-gray-700 w-full"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Sign In
-              </Button>
-            </Link>
+            <SignedOut>
+              <Link href={`/sign-in`}>
+                <Button
+                  variant="outline"
+                  className="text-white border-gray-700 w-full"
+                >
+                  Sign In
+                </Button>
+              </Link>
+            </SignedOut>
+            <SignedIn>
+              <Link href={`/dashboard`}>
+                <Button
+                  variant="outline"
+                  className="text-white border-gray-700 w-full"
+                >
+                  Dashboard
+                </Button>
+              </Link>
+            </SignedIn>
           </nav>
         )}
 

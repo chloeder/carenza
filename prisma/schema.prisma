@@ -13,3 +13,99 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id          String   @id @default(uuid())
+  clerkUserId String   @unique
+  email       String   @unique
+  name        String?
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  bio        String?
+  experience String?
+  education  String?
+  skills     String[]
+
+  CoverLetter   CoverLetter[]
+  Resume        Resume[]
+  CarrerInsight CarrerInsight[]
+
+  @@map("users")
+}
+
+model Resume {
+  id       String  @id @default(uuid())
+  userId   String
+  content  String
+  atsScore Int?
+  feedback String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  User User @relation(fields: [userId], references: [id])
+
+  @@map("resumes")
+}
+
+model CoverLetter {
+  id             String @id @default(uuid())
+  userId         String
+  content        String
+  jobDescription String
+  jobTitle       String
+  companyName    String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  User User @relation(fields: [userId], references: [id])
+
+  @@map("cover_letters")
+}
+
+model CarrerInsight {
+  id          String @id @default(uuid())
+  userId      String
+  industry    String
+  salaryRange Json[]
+
+  // Industry data
+  jobGrowth Float
+  jobDemand JobDemand
+  topSkills String[]
+
+  // Market conditions
+  makertOutlook MarketOutlook
+  marketTrends  String[]
+
+  // Learning Suggestions
+  recommendedSkills String[]
+  learningResources String[]
+
+  // Job Search Tips
+  jobSearchStrategies String[]
+  networkingTips      String[]
+
+  lastUpdatedAt DateTime @default(now())
+  nextUpdateAt  DateTime @default(now())
+
+  User User @relation(fields: [userId], references: [id])
+
+  @@index([industry])
+  @@map("carrer_insights")
+}
+
+enum JobDemand {
+  HIGH
+  MEDIUM
+  LOW
+}
+
+enum MarketOutlook {
+  GROWING
+  STABLE
+  SHRINKING
+}
