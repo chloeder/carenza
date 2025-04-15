@@ -1,36 +1,39 @@
 import { currentUser } from "@clerk/nextjs/server";
-import prisma from "./prisma";
+import db from "./prisma";
 
 export async function checkUser() {
   const user = await currentUser();
-
+  console.log("User: ", user);
   if (!user) {
     return null;
   }
 
   try {
-    const userInDb = await prisma.user.findUnique({
+    const loggedInUser = await db.user.findUnique({
       where: {
         clerkUserId: user.id,
       },
     });
+    console.log("Logged in user: ", loggedInUser);
+
+    if (loggedInUser) {
+      return loggedInUser;
+    }
 
     const fullName = `${user.firstName} ${user.lastName}`;
 
-    if (!userInDb) {
-      await prisma.user.create({
-        data: {
-          clerkUserId: user.id,
-          email: user.emailAddresses[0].emailAddress,
-          name: fullName,
-          imageUrl: user.imageUrl,
-        },
-      });
-    }
-
-    return userInDb;
+    const newUser = await db.user.create({
+      data: {
+        clerkUserId: user.id,
+        email: user.emailAddresses[0].emailAddress,
+        names: fullName,
+        imageUrl: user.imageUrl,
+      },
+    });
+    console.log("New user created: ", newUser);
+    return newUser;
   } catch (error) {
-    console.error("Error checking user", error);
+    console.error("Error in checkUser:", error);
     return null;
   }
 }

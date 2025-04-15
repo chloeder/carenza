@@ -5,7 +5,7 @@ import { HowItWorks } from "@/app/(main)/_components/how-it-works";
 import { Pricing } from "@/app/(main)/_components/pricing";
 import { Testimonials } from "@/app/(main)/_components/testimonials";
 
-export default async function Home() {
+export default function Home() {
   return (
     <>
       <HeroSection />

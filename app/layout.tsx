@@ -4,6 +4,7 @@ import { dark } from "@clerk/themes";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import AuthHandler from "@/components/shared/auth-handler";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -29,7 +30,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <AuthHandler>{children}</AuthHandler>
           </ThemeProvider>
         </body>
       </html>
