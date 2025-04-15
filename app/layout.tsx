@@ -1,11 +1,9 @@
-import { Footer } from "@/components/shared/footer";
-import { Header } from "@/components/shared/header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ClerkProvider } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { dark } from "@clerk/themes";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -31,9 +29,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Header />
-            <main className="min-h-screen">{children}</main>
-            <Footer />
+            {children}
           </ThemeProvider>
         </body>
       </html>

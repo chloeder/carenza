@@ -1,7 +1,7 @@
 import { CLERK_SIGN_IN_URL } from "@/constants";
 import Link from "next/link";
-import { HoverBorderGradient } from "../ui/hover-border-gradient";
-import { Spotlight } from "../ui/spotlight-new";
+import { HoverBorderGradient } from "../../../components/ui/hover-border-gradient";
+import { Spotlight } from "../../../components/ui/spotlight-new";
 
 export function HeroSection() {
   return (

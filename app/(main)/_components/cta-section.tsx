@@ -4,7 +4,7 @@ import { CLERK_SIGN_IN_URL } from "@/constants";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { useRef } from "react";
-import { HoverBorderGradient } from "../ui/hover-border-gradient";
+import { HoverBorderGradient } from "../../../components/ui/hover-border-gradient";
 
 export function CtaSection() {
   const ref = useRef(null);
