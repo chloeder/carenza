@@ -17,17 +17,17 @@ export const mainNavItems = [
     isActive: true, // This might need to be dynamic based on route
   },
   {
-    href: "#",
+    href: "/carrer-insight",
     icon: <BarChart3 className="h-4 w-4" />,
     label: "Career Analytics",
   },
   {
-    href: "#",
+    href: "/ai-cover-letter",
     icon: <PenTool className="h-4 w-4" />,
     label: "Cover Letter Builder",
   },
   {
-    href: "#",
+    href: "/ai-resume",
     icon: <FileText className="h-4 w-4" />,
     label: "Resume Feedback",
   },

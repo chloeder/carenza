@@ -1,4 +1,7 @@
 import { GEMINI_API_KEY } from "@/constants";
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-export const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
+export const ai = new GoogleGenerativeAI(GEMINI_API_KEY);
+export const gemini = ai.getGenerativeModel({
+  model: "gemini-1.5-flash",
+});
