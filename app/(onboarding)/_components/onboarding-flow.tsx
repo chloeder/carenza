@@ -1,30 +1,55 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import WelcomeStep from "././steps/welcome-step";
-import BiographyStep from "././steps/biography-step";
-import ExperienceStep from "././steps/experience-step";
-import EducationStep from "././steps/education-step";
-import SkillsStep from "././steps/skills-step";
-import CompletionStep from "././steps/completion-step";
-import { OnboardingProvider } from "./context/onboarding-context";
+import WelcomeStep from "./steps/welcome-step";
+import BiographyStep, {
+  type BiographyStepHandle,
+} from "./steps/biography-step";
+import ExperienceStep from "./steps/experience-step";
+import EducationStep from "./steps/education-step";
+import SkillsStep from "./steps/skills-step";
+import CompletionStep from "./steps/completion-step";
+import { OnboardingProvider } from "../_context/onboarding-context";
 
 export default function OnboardingFlow() {
   const [currentStep, setCurrentStep] = useState(0);
+  const biographyStepRef = useRef<BiographyStepHandle>(null);
 
   const steps = [
     { id: "welcome", component: <WelcomeStep /> },
-    { id: "biography", component: <BiographyStep /> },
+    {
+      id: "biography",
+      component: <BiographyStep ref={biographyStepRef} />,
+      needsValidation: true,
+    },
     { id: "experience", component: <ExperienceStep /> },
     { id: "education", component: <EducationStep /> },
     { id: "skills", component: <SkillsStep /> },
     { id: "completion", component: <CompletionStep /> },
   ];
 
-  const goToNextStep = () => {
+  const goToNextStep = async () => {
+    const currentStepConfig = steps[currentStep];
+
+    if (currentStepConfig.needsValidation) {
+      let isValid = false;
+      if (currentStepConfig.id === "biography" && biographyStepRef.current) {
+        console.log("Triggering validation for Biography Step...");
+        isValid = await biographyStepRef.current.triggerValidation();
+      }
+
+      if (!isValid) {
+        console.log(
+          `Validation failed for step: ${currentStepConfig.id}. Staying.`
+        );
+        return;
+      }
+      console.log(`Validation passed for step: ${currentStepConfig.id}.`);
+    }
+
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     }
@@ -58,14 +83,14 @@ export default function OnboardingFlow() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
-                  className="absolute w-full h-full overflow-y-auto"
+                  className="absolute w-full h-full overflow-y-auto p-1"
                 >
                   {steps[currentStep].component}
                 </motion.div>
               </AnimatePresence>
             </div>
 
-            <div className="flex justify-between mt-8">
+            <div className="flex justify-between mt-8 pt-4 border-t border-gray-800">
               <Button
                 variant="outline"
                 onClick={goToPreviousStep}

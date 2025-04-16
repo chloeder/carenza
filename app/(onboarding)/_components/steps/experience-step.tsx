@@ -11,7 +11,10 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
-import { useOnboarding, type Experience } from "../context/onboarding-context";
+import {
+  useOnboarding,
+  type Experience,
+} from "../../_context/onboarding-context";
 
 export default function ExperienceStep() {
   const { data, addExperience, removeExperience } = useOnboarding();

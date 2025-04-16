@@ -4,11 +4,10 @@ import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { useMediaQuery } from "@/hooks/use-media-query";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 import { Menu, X } from "lucide-react";
 import { Audiowide } from "next/font/google";
 import Link from "next/link";
-import { CLERK_SIGN_IN_URL } from "@/constants";
-import { SignedIn, SignedOut } from "@clerk/nextjs";
 const audioWide = Audiowide({
   subsets: ["latin"],
   weight: ["400"],
@@ -100,7 +99,7 @@ export function Header() {
         )}
 
         {isMobile && isMenuOpen && (
-          <div className="absolute top-full left-0 right-0 bg-gray-900 shadow-lg py-4 px-4 flex flex-col gap-4">
+          <div className="absolute top-full left-0 right-0 bg-black/50 backdrop-blur-md shadow-lg py-4 px-4 flex flex-col gap-4">
             <Link
               href="#features"
               className="text-gray-300 hover:text-white transition-colors py-2"
@@ -122,15 +121,26 @@ export function Header() {
             >
               How it Works
             </Link>
-            <Link href={`${CLERK_SIGN_IN_URL}`}>
-              <Button
-                variant="outline"
-                className="text-white border-gray-700 w-full"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Sign In
-              </Button>
-            </Link>
+            <SignedOut>
+              <Link href={`/sign-in`}>
+                <Button
+                  variant="outline"
+                  className="text-white border-gray-700 w-full"
+                >
+                  Sign In
+                </Button>
+              </Link>
+            </SignedOut>
+            <SignedIn>
+              <Link href={`/dashboard`}>
+                <Button
+                  variant="outline"
+                  className="text-white border-gray-700 w-full"
+                >
+                  Dashboard
+                </Button>
+              </Link>
+            </SignedIn>
           </div>
         )}
       </div>

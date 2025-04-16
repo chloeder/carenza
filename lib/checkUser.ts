@@ -25,7 +25,7 @@ export async function checkUser() {
       data: {
         clerkUserId: user.id,
         email: user.emailAddresses[0].emailAddress,
-        names: fullName,
+        name: fullName,
         imageUrl: user.imageUrl,
       },
     });

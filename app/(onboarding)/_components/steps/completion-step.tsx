@@ -1,20 +1,33 @@
-"use client";
-
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { motion } from "framer-motion";
-import { CheckCircle, ChevronRight } from "lucide-react";
-import { useOnboarding } from "../context/onboarding-context";
-
+import { CheckCircle, ChevronRight, Loader2 } from "lucide-react";
+import { useOnboarding } from "../../_context/onboarding-context";
+import { useFetch } from "../../_hooks/user";
+import { updateUser } from "@/actions/user";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 export default function CompletionStep() {
+  const router = useRouter();
   const { data } = useOnboarding();
-  console.log(data);
-  const handleComplete = () => {
-    // In a real application, you would submit the data to your backend here
-    console.log("Onboarding data:", data);
-    alert(
-      "Profile created successfully! You can now access your AI Career Coach dashboard."
-    );
-  };
+  const {
+    loading: updateLoading,
+    fn: updateFetchData,
+    data: updateData,
+  } = useFetch(updateUser);
+
+  async function handleComplete() {
+    try {
+      await updateFetchData(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    if (updateData && !updateLoading) {
+      router.push("/dashboard");
+    }
+  }, [updateData, router, updateLoading]);
 
   return (
     <div className="flex flex-col items-center text-center">
@@ -57,8 +70,14 @@ export default function CompletionStep() {
           onClick={handleComplete}
           className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2 py-4 px-8"
         >
-          Start Your AI Carrer Journey
-          <ChevronRight className="ml-2 h-5 w-5" />
+          {updateLoading ? (
+            <Loader2 className="h-5 w-5 animate-spin" />
+          ) : (
+            <>
+              Start Your AI Carrer Journey
+              <ChevronRight className="ml-2 h-5 w-5" />
+            </>
+          )}
         </HoverBorderGradient>
       </motion.div>
     </div>

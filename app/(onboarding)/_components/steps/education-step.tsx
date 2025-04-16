@@ -9,7 +9,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
-import { useOnboarding, type Education } from "../context/onboarding-context";
+import {
+  useOnboarding,
+  type Education,
+} from "../../_context/onboarding-context";
 
 export default function EducationStep() {
   const { data, addEducation, removeEducation } = useOnboarding();

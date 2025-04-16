@@ -7,8 +7,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Lightbulb, Plus, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useOnboarding } from "../context/onboarding-context";
-
+import { useOnboarding } from "../../_context/onboarding-context";
+import { suggestedSkills } from "@/data/suggested-skill";
 export default function SkillsStep() {
   const { data, addSkill, removeSkill } = useOnboarding();
   const [newSkill, setNewSkill] = useState("");
@@ -25,31 +25,6 @@ export default function SkillsStep() {
       e.preventDefault();
       handleAddSkill();
     }
-  };
-
-  // Suggested skills for different career paths
-  const suggestedSkills = {
-    tech: [
-      "JavaScript",
-      "React",
-      "Node.js",
-      "Python",
-      "UI/UX Design",
-      "Data Analysis",
-    ],
-    business: [
-      "Project Management",
-      "Marketing",
-      "Sales",
-      "Leadership",
-      "Communication",
-    ],
-    creative: [
-      "Graphic Design",
-      "Content Writing",
-      "Video Editing",
-      "Photography",
-    ],
   };
 
   return (

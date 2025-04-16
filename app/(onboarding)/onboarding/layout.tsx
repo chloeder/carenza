@@ -1,16 +1,9 @@
-import { checkUser } from "@/lib/checkUser";
-import { redirect } from "next/navigation";
-
 export default async function OnboardingLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const user = await checkUser();
-
-  if (!user) {
-    redirect("/sign-in");
-  }
+  // check if user has onboarded
 
   return (
     <div className="flex flex-col h-screen">
