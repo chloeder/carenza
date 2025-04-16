@@ -1,13 +1,13 @@
 "use client";
 
 import type React from "react";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { MobileMenu } from "./_components/mobile-menu";
 import { Sidebar } from "./_components/sidebar";
 import { TopNavigation } from "./_components/top-navigation";
 import { comingSoonNavItems } from "@/data/dashboard";
 import { mainNavItems } from "@/data/dashboard";
-
+import { BarLoader } from "react-spinners";
 export default function DashboardLayout({
   children,
 }: {
@@ -41,7 +41,11 @@ export default function DashboardLayout({
         />
 
         {/* Main Content */}
-        <main className="flex-1">{children}</main>
+        <Suspense
+          fallback={<BarLoader className="mt-4" width={"100%"} color="gray" />}
+        >
+          <main className="flex-1">{children}</main>
+        </Suspense>
       </div>
     </div>
   );

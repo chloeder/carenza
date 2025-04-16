@@ -23,11 +23,17 @@ import {
   PieChart,
   RefreshCw,
   TrendingUp,
+  TrendingDown,
+  Minus,
   Users,
 } from "lucide-react";
 import { useState } from "react";
-
-export function CareerInsightsContent() {
+import { Badge } from "@/components/ui/badge";
+export function CareerInsightsContent({
+  careerInsight,
+}: {
+  careerInsight?: any;
+}) {
   const [activeTab, setActiveTab] = useState("overview");
 
   return (
@@ -83,21 +89,33 @@ export function CareerInsightsContent() {
           </TabsTrigger>
           <TabsTrigger
             value="skills"
-            className="data-[state=active]:bg-zinc-700"
+            className="data-[state=active]:bg-zinc-700 relative group"
+            disabled={true}
           >
             Skills Analysis
+            <span className="absolute -top-1 -right-1 bg-zinc-900 border border-zinc-500 text-zinc-300 text-[10px] px-2 py-0.5 rounded-full animate-pulse shadow-lg">
+              Soon
+            </span>
           </TabsTrigger>
           <TabsTrigger
             value="market"
-            className="data-[state=active]:bg-zinc-700"
+            className="data-[state=active]:bg-zinc-700 relative group"
+            disabled={true}
           >
             Job Market
+            <span className="absolute -top-1 -right-1 bg-zinc-900 border border-zinc-500 text-zinc-300 text-[10px] px-2 py-0.5 rounded-full animate-pulse shadow-lg">
+              Soon
+            </span>
           </TabsTrigger>
           <TabsTrigger
             value="salary"
-            className="data-[state=active]:bg-zinc-700"
+            className="data-[state=active]:bg-zinc-700 relative group"
+            disabled={true}
           >
             Salary Insights
+            <span className="absolute -top-1 -right-1 bg-zinc-900 border border-zinc-500 text-zinc-300 text-[10px] px-2 py-0.5 rounded-full animate-pulse shadow-lg">
+              Soon
+            </span>
           </TabsTrigger>
         </TabsList>
 
@@ -106,34 +124,34 @@ export function CareerInsightsContent() {
           {/* Key Metrics */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <MetricCard
-              title="Market Value"
-              value="$85,000"
-              change="+12%"
-              trend="up"
-              description="Based on your skills & experience"
+              title="Market Outlook"
+              value={careerInsight?.marketOutlook}
+              trend={
+                careerInsight?.marketOutlook as
+                  | "GROWING"
+                  | "STABLE"
+                  | "SHRINKING"
+              }
+              description={`Last updated ${careerInsight?.lastUpdatedAt}`}
               icon={<TrendingUp className="h-5 w-5 text-emerald-500" />}
             />
             <MetricCard
-              title="Job Applications"
-              value="18"
-              change="+5"
-              trend="up"
-              description="This month"
-              icon={<Briefcase className="h-5 w-5 text-blue-500" />}
+              title="Job Growth"
+              value={careerInsight?.jobGrowth}
+              trend="GROWING"
+              icon={<Minus className="h-5 w-5 text-zinc-500" />}
             />
             <MetricCard
-              title="Interview Rate"
-              value="42%"
-              change="+8%"
-              trend="up"
-              description="From last month"
-              icon={<Users className="h-5 w-5 text-purple-500" />}
+              title="Job Demand"
+              value={careerInsight?.jobDemand}
+              trend={
+                careerInsight?.jobDemand as "GROWING" | "STABLE" | "SHRINKING"
+              }
+              icon={<TrendingDown className="h-5 w-5 text-red-500" />}
             />
             <MetricCard
-              title="Skills Gap"
-              value="3"
-              change="-2"
-              trend="down"
+              title="Top Skills"
+              value={careerInsight?.topSkills}
               description="Critical skills needed"
               icon={<FileText className="h-5 w-5 text-amber-500" />}
             />
@@ -620,12 +638,38 @@ function MetricCard({
   icon,
 }: {
   title: string;
-  value: string;
-  change: string;
-  trend?: "up" | "down";
-  description: string;
+  value: string | string[] | undefined;
+  change?: string;
+  trend?: "GROWING" | "STABLE" | "SHRINKING";
+  description?: string;
   icon: React.ReactNode;
 }) {
+  const getTrendIcon = () => {
+    switch (trend) {
+      case "GROWING":
+        return <TrendingUp className="h-4 w-4 text-emerald-500" />;
+      case "STABLE":
+        return <Minus className="h-4 w-4 text-zinc-500" />;
+      case "SHRINKING":
+        return <TrendingDown className="h-4 w-4 text-red-500" />;
+      default:
+        return null;
+    }
+  };
+
+  const getTrendColor = () => {
+    switch (trend) {
+      case "GROWING":
+        return "bg-emerald-900/30 text-emerald-400";
+      case "SHRINKING":
+        return "bg-red-900/30 text-red-400";
+      case "STABLE":
+        return "bg-zinc-900/30 text-zinc-400";
+      default:
+        return "bg-zinc-900/30 text-zinc-400";
+    }
+  };
+
   return (
     <Card className="bg-zinc-900 border-zinc-800">
       <CardContent className="p-6">
@@ -633,23 +677,30 @@ function MetricCard({
           <div>
             <p className="text-sm text-zinc-400 mb-1">{title}</p>
             <div className="flex items-baseline gap-2">
-              <p className="text-2xl font-bold text-zinc-200">{value}</p>
+              {Array.isArray(value) ? (
+                value.map((skill: string) => (
+                  <Badge key={skill} variant="secondary">
+                    {skill}
+                  </Badge>
+                ))
+              ) : (
+                <p className="text-2xl font-bold text-zinc-200">{value}</p>
+              )}
               {trend && (
                 <span
-                  className={`text-xs px-1.5 py-0.5 rounded-full ${
-                    trend === "up"
-                      ? "bg-emerald-900/30 text-emerald-400"
-                      : "bg-red-900/30 text-red-400"
-                  }`}
+                  className={`text-xs px-1.5 py-0.5 rounded-full flex items-center gap-1 ${getTrendColor()}`}
                 >
+                  {getTrendIcon()}
                   {change}
                 </span>
               )}
-              {!trend && (
+              {!trend && change && (
                 <span className="text-xs text-zinc-500">{change}</span>
               )}
             </div>
-            <p className="text-xs text-zinc-500 mt-1">{description}</p>
+            {description && (
+              <p className="text-xs text-zinc-500 mt-1">{description}</p>
+            )}
           </div>
           <div className="p-2 rounded-md bg-zinc-800">{icon}</div>
         </div>
@@ -814,8 +865,8 @@ function getJobStatusColor(statusName: string) {
   return colorMap[statusName] || "#a1a1aa";
 }
 
-function getProgressColor(progress: string) {
-  if (progress < "40") return "bg-red-600";
-  if (progress < "70") return "bg-amber-600";
-  return "bg-emerald-600";
-}
+// function getProgressColor(progress: string) {
+//   if (progress < "40") return "bg-red-600";
+//   if (progress < "70") return "bg-amber-600";
+//   return "bg-emerald-600";
+// }
