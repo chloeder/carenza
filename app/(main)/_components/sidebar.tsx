@@ -59,26 +59,16 @@ export function AppSidebar() {
           icon: MessageSquare,
           href: "/interview-simulator",
         },
-        {
-          title: "Career Roadmap",
-          icon: BookOpen,
-          href: "/career-roadmap",
-        },
+        // {
+        //   title: "Career Roadmap",
+        //   icon: BookOpen,
+        //   href: "/career-roadmap",
+        // },
         // {
         //   title: "Job Tracker",
         //   icon: KanbanSquare,
         //   href: "/job-tracker",
         // },
-      ],
-    },
-    {
-      title: "Account",
-      items: [
-        {
-          title: "Profile",
-          icon: User,
-          href: "/profile",
-        },
       ],
     },
   ];
