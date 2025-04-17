@@ -1,10 +1,10 @@
-import AuthHandler from "@/components/shared/auth-handler";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import AuthHandler from "@/components/shared/auth-handler";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",

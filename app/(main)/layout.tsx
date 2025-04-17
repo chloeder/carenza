@@ -1,17 +1,17 @@
-import { Footer } from "@/components/shared/footer";
-import { Header } from "@/components/shared/header";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { AppSidebar } from "./_components/sidebar";
 
-export default async function MainLayout({
+export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <>
-      {" "}
-      <Header />
-      <main className="min-h-screen">{children}</main>
-      <Footer />
-    </>
+    <SidebarProvider>
+      <div className="flex min-h-screen">
+        <AppSidebar />
+        <main className="flex-1">{children}</main>
+      </div>
+    </SidebarProvider>
   );
 }
